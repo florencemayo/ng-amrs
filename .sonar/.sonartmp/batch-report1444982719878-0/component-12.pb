@@ -1,1 +1,0 @@
-'app/scripts/clinic-dashboard/directives :@รุJ$7a70e1d3-0203-4c8e-9a49-b9ba36ec79bc

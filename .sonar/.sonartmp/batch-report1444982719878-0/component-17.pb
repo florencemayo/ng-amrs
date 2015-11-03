@@ -1,1 +1,0 @@
-$app/scripts/clinic-dashboard/filters :@»ÿJ$daf06054-a4b4-486f-b77c-932f108dc7ce

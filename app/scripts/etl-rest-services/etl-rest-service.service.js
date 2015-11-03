@@ -19,7 +19,14 @@
       getMonthlyAppointmentSchedule: getMonthlyAppointmentSchedule,
       getMonthlyAppointmentAndVisits: getMonthlyAppointmentAndVisits,
       getDefaultersList: getDefaultersList,
-      getDailyVisits: getDailyVisits
+      getDailyVisits: getDailyVisits,
+      getPatientListByIndicator: getPatientListByIndicator,
+      getHivSummaryIndicators: getHivSummaryIndicators,
+      getDataEntryStatisticsTypes: getDataEntryStatisticsTypes,
+      getDataEntryStatisticsQueryParam: getDataEntryStatisticsQueryParam,
+      getDataEntryStatistics: getDataEntryStatistics,
+      getPatientsCreatedByPeriod:getPatientsCreatedByPeriod,
+      getDetailsOfPatientsCreatedInLocation:getDetailsOfPatientsCreatedInLocation
     };
     return serviceDefinition;
 
@@ -227,5 +234,191 @@
         });
 
     }
+    
+    function getPatientListByIndicator(locationUuid, startDate, endDate, indicator, successCallback, failedCallback, startIndex, limit) {
+      var resource = getResource('location/:uuid/patient-by-indicator');
+
+      var params = { endDate: endDate, indicator: indicator, startDate: startDate, uuid: locationUuid };
+
+      if (startIndex !== undefined) {
+        params.startIndex = startIndex;
+      }
+
+      if (limit !== undefined) {
+        params.limit = limit;
+      }
+
+      console.log(params);
+      console.log(startIndex);
+      return resource.get(params).$promise
+        .then(function (response) {
+          successCallback(response);
+        })
+        .catch(function (error) {
+          failedCallback('Error processing request', error);
+          console.error(error);
+        });
+
+    }
+
+    function getHivSummaryIndicators(startDate, endDate, report, countBy, successCallback, failedCallback, startIndex, limit) {
+      var resource = getResource('hiv-summary-indicators');
+
+      var params = { endDate: endDate, report: report, countBy: countBy, startDate: startDate };
+
+      if (startIndex !== undefined) {
+        params.startIndex = startIndex;
+      }
+
+      if (limit !== undefined) {
+        params.limit = limit;
+      }
+
+      console.log(params);
+      console.log(startIndex);
+
+      return resource.get(params).$promise
+        .then(function (response) {
+          successCallback(response);
+        })
+        .catch(function (error) {
+          failedCallback('Error processing request', error);
+          console.error(error);
+        });
+
+    }
+
+    function getDataEntryStatistics(subType, startDate, endDate, locationIds, encounterTypes,
+      formIds, providerUuid, creatorUuid, successCallback, failedCallback) {
+      var resource = getResource('data-entry-statistics/:subType');
+
+      var params = getDataEntryStatisticsQueryParam(subType, startDate, endDate, locationIds, encounterTypes,
+        formIds, providerUuid, creatorUuid);
+
+      return resource.get(params).$promise
+        .then(function (response) {
+          successCallback(response);
+        })
+        .catch(function (error) {
+          failedCallback('Error processing request', error);
+          console.error(error);
+        });
+    }
+
+    function getDataEntryStatisticsTypes() {
+      return [
+        {
+          id: 'view1',
+          subType: 'by-date-by-encounter-type'
+        },
+        {
+          id: 'view2',
+          subType: 'by-month-by-encounter-type'
+        },
+        {
+          id: 'view3',
+          subType: 'by-provider-by-encounter-type'
+        },
+        {
+          id: 'view4',
+          subType: 'by-creator-by-encounter-type'
+        }
+      ];
+    }
+
+    function getDataEntryStatisticsQueryParam(subType, startDate, endDate, locationIds, encounterTypeIds, formIds, providerUuid, creatorUuid) {
+      var param = {
+        subType: subType, //mandatory params
+        startDate: startDate,
+        endDate: endDate
+      };
+
+      var paramConfig = {};
+
+      var getParamConfigObj = function (arrayProperties) {
+        var obj = {};
+        for (var i = 0; i < arrayProperties.length; i++) {
+          obj[arrayProperties[i]] = 'prop';
+        }
+        return obj;
+      };
+
+      switch (subType) {
+        case 'by-date-by-encounter-type':
+          paramConfig = getParamConfigObj(['locations', 'encounterTypeIds', 'formIds', 'providerUuid']);
+          break;
+        case 'by-month-by-encounter-type':
+          paramConfig = getParamConfigObj(['locations', 'encounterTypeIds', 'formIds', 'providerUuid']);
+          break;
+        case 'by-provider-by-encounter-type':
+          paramConfig = getParamConfigObj(['locations', 'encounterTypeIds', 'formIds', 'providerUuid']);
+          break;
+        case 'by-creator-by-encounter-type':
+          paramConfig = getParamConfigObj(['locations', 'encounterTypeIds', 'formIds', 'creatorUuid']);
+          break;
+      }
+
+      //set-up the param object
+      if (locationIds && paramConfig.locations) { param.locations = locationIds; }
+      if (encounterTypeIds && paramConfig.encounterTypeIds) { param.encounterTypeIds = encounterTypeIds; }
+      if (formIds && paramConfig.formIds) { param.formIds = formIds; }
+      if (providerUuid && paramConfig.providerUuid) { param.providerUuid = providerUuid; }
+      if (creatorUuid && paramConfig.creatorUuid) { param.creatorUuid = creatorUuid; }
+
+      return param;
+    }
+    
+    function getPatientsCreatedByPeriod(startDate, endDate, successCallback, failedCallback, startIndex, limit) {
+      var resource = getResource('patient/creation/statistics');
+
+      var params = { startDate: startDate, endDate: endDate };
+
+      if (startIndex !== undefined) {
+        params.startIndex = startIndex;
+      }
+
+      if (limit !== undefined) {
+        params.limit = limit;
+      }
+
+      console.log(params);
+      console.log(startIndex);
+
+      return resource.get(params).$promise
+        .then(function (response) {
+          successCallback(response);
+        })
+        .catch(function (error) {
+          failedCallback('Error processing request', error);
+          console.error(error);
+        });
+
+    }
+    
+    function getDetailsOfPatientsCreatedInLocation(location,startDate, endDate, successCallback, failedCallback, startIndex, limit) {
+      var resource = getResource('location/:location/patient/creation/statistics');
+      var params = {location:location, startDate: startDate, endDate: endDate };
+      
+      if (startIndex !== undefined) {
+        params.startIndex = startIndex;
+      }
+
+      if (limit !== undefined) {
+        params.limit = limit;
+      }
+
+      console.log(params);
+      console.log(startIndex);
+
+      return resource.get(params).$promise
+        .then(function (response) {
+          successCallback(response);
+        })
+        .catch(function (error) {
+          failedCallback('Error processing request', error);
+          console.error(error);
+        });
+
+    }    
   }
 })();

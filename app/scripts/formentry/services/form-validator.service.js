@@ -476,11 +476,11 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                 return array.indexOf(members) !== -1;
             }
         }
-        
+
         function formatDate(value, format, offset) {
             var format = format || 'yyyy-MM-dd';
             var offset = offset || '+0300'
-            
+
             if(!(value instanceof Date)) {
                 value = new Date(value);
                 if(value === null || value === undefined) {

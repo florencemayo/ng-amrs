@@ -1,1 +1,0 @@
-papp/scripts/patient-search :qr@§ÙJ$d27c9b3c-73e8-4f9e-ade5-968baea53046

@@ -52,6 +52,7 @@ module.exports = function (config) {
     'bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.min.js',
     'bower_components/spin.js/spin.js',
     'bower_components/angular-loading/angular-loading.js',
+    'bower_components/ui-router-extras/release/ct-ui-router-extras.js',
     'bower_components/angular-mocks/angular-mocks.js',
     // endbower
       'app/scripts/**/*.module.js',
@@ -98,10 +99,11 @@ module.exports = function (config) {
     preprocessors: {
       'app/views/patient-dashboard/**/*.html': ['ng-html2js'],
       'app/views/clinic-dashboard/**/*.html': ['ng-html2js'],
+      'app/views/admin/**/*.html': ['ng-html2js'],
     },
     ngHtml2JsPreprocessor: {
       stripPrefix: 'app/',
-      moduleName: 'my.templates' 
+      moduleName: 'my.templates'
     },
 
     // Continuous Integration mode
