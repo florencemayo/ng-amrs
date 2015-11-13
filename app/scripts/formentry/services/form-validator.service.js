@@ -102,9 +102,9 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                     var value = modelValue || viewValue;
                     var dateValue;
                     //var curDate = Date.parse(Date.today(), 'd-MMM-yyyy');
-                    console.log('date Value ++', value)
+                    // console.log('date Value ++', value)
                     if (value !== undefined && value !== null && value !== '') {
-                        console.log('date Value ++', value)
+                        // console.log('date Value ++', value)
                         dateValue = Date.parse(value, 'd-MMM-yyyy').clearTime();
                     }
                     if (dateValue !== undefined || dateValue !== null || value !== '') {
@@ -145,13 +145,13 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                     var expressionToEvaluate = service.replaceQuestionsPlaceholdersWithValue(params.failsWhenExpression, keyValue);
 
                     expressionToEvaluate = service.replaceMyValuePlaceholdersWithActualValue(expressionToEvaluate, val);
-                    console.log('Evaluates val', val);
-                    console.log('Evaluates model', elementScope);
-                    console.log('expressionToEvaluate', expressionToEvaluate);
+                    // console.log('Evaluates val', val);
+                    // console.log('Evaluates model', elementScope);
+                    // console.log('expressionToEvaluate', expressionToEvaluate);
 
                     var isInvalid = service.evaluateExpression(expressionToEvaluate);
 
-                    console.log('isInvalid', isInvalid);
+                    // console.log('isInvalid', isInvalid);
 
                     return !isInvalid;
                 });
@@ -165,7 +165,7 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
 
             //special case for multicheck box
             if (elementScope.$parent && elementScope.$parent.multiCheckbox) {
-                console.log('validating multicheck box..', elementScope.$parent.multiCheckbox);
+                // console.log('validating multicheck box..', elementScope.$parent.multiCheckbox);
                 var selectedOptions = elementScope.$parent.model[elementScope.$parent.options.key];
                 var mergedOptions = selectedOptions ? [].concat(selectedOptions) : [];
 
@@ -225,7 +225,7 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                             isValid = true;
                     });
 
-                    console.log('isValid', isValid);
+                    // console.log('isValid', isValid);
                     return isValid;
                 });
 
@@ -254,7 +254,7 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                     i = i + 1;
 
                 });
-                console.log('isRequired', isRequired);
+                // console.log('isRequired', isRequired);
                 return isRequired;
             }
 
@@ -297,7 +297,7 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                         CurrentLoadedFormService.clearQuestionValueByKey(scope.model, scope.options.key);
                     }
                 }
-                console.log('hide/disable', results);
+                // console.log('hide/disable', results);
                 return results;
             });
         }
@@ -326,13 +326,13 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                 var expressionToEvaluate = service.replaceQuestionsPlaceholdersWithValue(params.disableWhenExpression || params.hideWhenExpression, keyValue);
 
                 expressionToEvaluate = service.replaceMyValuePlaceholdersWithActualValue(expressionToEvaluate, val);
-                console.log('Evaluates val', val);
-                console.log('Evaluates model', scope);
-                console.log('expressionToEvaluate', expressionToEvaluate);
+                // console.log('Evaluates val', val);
+                // console.log('Evaluates model', scope);
+                // console.log('expressionToEvaluate', expressionToEvaluate);
 
                 var isDisabled = service.evaluateExpression(expressionToEvaluate);
 
-                console.log('isDisabled/isHidden', isDisabled);
+                // console.log('isDisabled/isHidden', isDisabled);
 
                 if (isDisabled === true) {
                     if (element) {
@@ -352,14 +352,14 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
         function addToListenersMetadata(listenerId, fieldsIds) {
             _.each(fieldsIds, function (fieldId) {
                 if (CurrentLoadedFormService.listenersMetadata[fieldId] === undefined) {
-                    console.log('adding listeners entry', fieldId);
+                    // console.log('adding listeners entry', fieldId);
                     CurrentLoadedFormService.listenersMetadata[fieldId] = [];
                 }
                 if (CurrentLoadedFormService.listenersMetadata[fieldId].indexOf(listenerId) < 0) {
-                    console.log('adding to listeners', listenerId);
+                    // console.log('adding to listeners', listenerId);
                     CurrentLoadedFormService.listenersMetadata[fieldId].push(listenerId);
                 }
-                console.log('listeners', CurrentLoadedFormService.listenersMetadata);
+                // console.log('listeners', CurrentLoadedFormService.listenersMetadata);
             });
         }
 

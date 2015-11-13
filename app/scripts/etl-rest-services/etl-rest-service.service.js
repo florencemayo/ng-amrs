@@ -139,9 +139,6 @@
         params.limit = limit;
       }
 
-      console.log(params);
-      console.log(startIndex);
-
       return resource.get(params).$promise
         .then(function (response) {
           successCallback(response);
@@ -166,9 +163,6 @@
         params.limit = limit;
       }
 
-      console.log(params);
-      console.log(startIndex);
-
       return resource.get(params).$promise
         .then(function (response) {
           successCallback(response);
@@ -192,9 +186,6 @@
       if (limit !== undefined) {
         params.limit = limit;
       }
-
-      console.log(params);
-      console.log(startIndex);
 
       return resource.get(params).$promise
         .then(function (response) {
@@ -221,9 +212,6 @@
         params.limit = limit;
       }
 
-      console.log(params);
-      console.log(startIndex);
-
       return resource.get(params).$promise
         .then(function (response) {
           successCallback(response);
@@ -248,8 +236,6 @@
         params.limit = limit;
       }
 
-      console.log(params);
-      console.log(startIndex);
       return resource.get(params).$promise
         .then(function (response) {
           successCallback(response);
@@ -273,9 +259,6 @@
       if (limit !== undefined) {
         params.limit = limit;
       }
-
-      console.log(params);
-      console.log(startIndex);
 
       return resource.get(params).$promise
         .then(function (response) {
@@ -381,8 +364,8 @@
         params.limit = limit;
       }
 
-      console.log(params);
-      console.log(startIndex);
+      // console.log(params);
+      // console.log(startIndex);
 
       return resource.get(params).$promise
         .then(function (response) {
@@ -406,9 +389,6 @@
       if (limit !== undefined) {
         params.limit = limit;
       }
-
-      console.log(params);
-      console.log(startIndex);
 
       return resource.get(params).$promise
         .then(function (response) {
