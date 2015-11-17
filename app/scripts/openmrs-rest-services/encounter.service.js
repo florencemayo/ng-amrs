@@ -69,7 +69,6 @@ jshint -W026, -W116, -W098, -W003, -W068, -W069, -W004, -W033, -W030, -W117
 
         //_encounter['voided'] = false;
         console.log('update json');
-        console.log(JSON.stringify(_encounter));
         //updating an existing encounter
         Restangular.one('encounter', uuid).customPOST(JSON.stringify(_encounter)).then(function(success) {
           console.log('Encounter saved successfully');

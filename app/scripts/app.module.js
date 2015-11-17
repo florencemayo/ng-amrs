@@ -153,13 +153,6 @@
         $rootScope.currentState = to.name;
         $rootScope.previousStateParams = fromParams;
         $rootScope.currentStateParams = toParams;
-
-        console.log('Previous state:' + $rootScope.previousState);
-        console.log('Previous state Params:' + $rootScope.previousStateParams);
-        console.log($rootScope.previousStateParams);
-        console.log('Current state:' + $rootScope.currentState);
-        console.log('Current Param Params:' + $rootScope.currentStateParams);
-        console.log($rootScope.currentStateParams);
       });
 
     });

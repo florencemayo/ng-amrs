@@ -133,21 +133,17 @@ jshint -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W069, -W106
       if (encFormUuid === undefined || encFormUuid === '') {
         encFormUuid = $scope.vm.encounter.encounterTypeUuid();
       }
-
-      console.log('selected form', encFormUuid);
       selectedForm = FormsMetaData.getForm(encFormUuid);
       $scope.vm.encounterType = $scope.vm.encounter.encounterTypeName();
     } else {
       selectedForm = FormsMetaData.getForm($stateParams.formuuid);
       $scope.vm.encounterType = selectedForm.encounterTypeName;
-      console.log('selected form', selectedForm);
     }
 
     //load the selected form
     activate();
 
     $scope.vm.cancel = function() {
-      console.log($state);
       $scope.vm.savedOrUpdated = true;
       var dlg = dialogs.confirm('Close Form', 'Do you want to close this form?');
       dlg.result.then(function(btn) {
@@ -179,10 +175,8 @@ jshint -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W069, -W106
       if ($scope.vm.form.$valid) {
         if ($scope.vm.displayedTabs.length === $scope.vm.tabs.length) {
         var form = selectedForm;
-        console.log('Selected form', form);
         var payLoadData = FormentryService.updateFormPayLoad($scope.vm.model, $scope.vm.formlyFields, $scope.vm.patient, form, params);
         var payLoad = payLoadData.formPayLoad;
-        console.log(payLoad);
         if (!_.isEmpty(payLoad.obs)) {
           /*
           submit only if we have some obs
@@ -214,8 +208,6 @@ jshint -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W069, -W106
                           if (payLoadData.personAttributes.length > 0) {
                             PersonAttributesRestService.getPersonAttributeFieldValues(payLoadData.personAttributes, $scope.vm.patient);
                           }
-                          // console.log('Previous State')
-                          // console.log($rootScope.previousState + '/' +$rootScope.previousStateParams.uuid)
                           $location.path($rootScope.previousState + '/' + $rootScope.previousStateParams.uuid);
                         }
                       }
@@ -228,8 +220,6 @@ jshint -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W069, -W106
 
                     $scope.vm.success = '| Form Submitted successfully';
                     var dlg = dialogs.notify('Success', $scope.vm.success);
-                    // console.log('Previous State')
-                    // console.log($rootScope.previousState + '/' +$rootScope.previousStateParams.uuid)
                     $location.path($rootScope.previousState + '/' + $rootScope.previousStateParams.uuid);
                   }
                 }
@@ -253,11 +243,8 @@ jshint -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W069, -W106
         //only activate this for debugging purposes
         if ($scope.vm.form.$error !== undefined) {
           var err = $scope.vm.form.$error;
-          console.log('errrr', err);
           if (err.js_expression1) {
             _.each(err.js_expression1[0].$error.js_expression1, function(_errFields) {
-              console.log('errr 2', _errFields);
-              console.log('errror_fields:', getErrorField(_errFields.$name));
             });
           }
         }
@@ -289,7 +276,6 @@ jshint -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W069, -W106
                 $scope.vm.isBusy = false;
                 var end = new Date().getTime();
                 var time = end - start;
-                console.log('Form Creation Execution time: ' + time + ' ms');
               }
 
               if (params.uuid !== undefined && params.uuid !== '') {
@@ -365,12 +351,10 @@ jshint -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W069, -W106
     */
     function voidObs(_payLoad, callback) {
       var obsToVoid = _.where(_payLoad.obs, { voided: true });
-      //console.log('Obs to Void: ', obsToVoid);
       if (obsToVoid !== undefined) {
         _.each(obsToVoid, function(obs) {
           OpenmrsRestService.getObsResService().voidObs(obs, function(data) {
             if (data) {
-              console.log('Voided Obs uuid: ', obs.uuid);
             }
           },
             //error callback
@@ -392,17 +376,14 @@ jshint -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W069, -W106
     */
     function updateObs(_payLoad, callback) {
       var obsToUpdate = _.filter(_payLoad.obs, function(obs) {
-        // console.log(obs);
         if (obs.uuid !== undefined && obs.voided === undefined) {
           return obs;
         }
       });
-      //console.log('Obs to Void: ', obsToVoid);
       if (obsToUpdate !== undefined) {
         _.each(obsToUpdate, function(obs) {
           OpenmrsRestService.getObsResService().saveUpdateObs(obs, function(data) {
             if (data) {
-              console.log('Updated Obs uuid: ', data);
             }
           },
             //error callback
@@ -423,9 +404,6 @@ jshint -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W069, -W106
     private methdd to get the error field
     */
     function getErrorField(_fieldKey) {
-
-      //  console.log('++++fieldKey', _fieldKey);
-
       var errorField;
       var fieldKey;
       if (_.contains(_fieldKey, 'ui-select-extended')) {
@@ -439,7 +417,6 @@ jshint -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W069, -W106
       }
 
       var field = FormentryService.getFieldByIdKey(fieldKey, $scope.vm.tabs);
-      // console.log('error Field ', field);
       return field;
     }
 
