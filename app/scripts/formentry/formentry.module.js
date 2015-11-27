@@ -9,7 +9,7 @@
             'ngMessages',
             'ui.bootstrap',
             'ui.bootstrap.datetimepicker',
-	        'ui.select',
+	          'ui.select',
             'ui.router',
             'angularMoment',
             'dialogs.main',

@@ -16,7 +16,10 @@ module.exports = function (config) {
     // testing framework to use (jasmine/mocha/qunit/...)
     // as well as any additional frameworks (requirejs/chai/sinon/...)
     frameworks: [
-      'chai', 'mocha', 'sinon'
+      'chai',
+      'mocha',
+      'sinon',
+      'jasmine'
     ],
 
     // list of files / patterns to load in the browser
@@ -59,7 +62,8 @@ module.exports = function (config) {
       'test/mock/**/*.module.mock.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js',
-      '**/*.html'
+      '**/*.html',
+       '*.js'
     ],
 
     // list of files / patterns to exclude
@@ -82,7 +86,7 @@ module.exports = function (config) {
     ],
 
     // reporters configuration
-    reporters: ['mocha'],
+    reporters: ['mocha','coverage'],
 
     // Which plugins to enable
     plugins: [
@@ -93,11 +97,14 @@ module.exports = function (config) {
       'karma-sinon',
       'karma-mocha',
       'karma-chai',
-      'karma-ng-html2js-preprocessor'
+      'karma-ng-html2js-preprocessor',
+      'karma-coverage',
+      'karma-jasmine'
     ],
     preprocessors: {
       'app/views/patient-dashboard/**/*.html': ['ng-html2js'],
       'app/views/clinic-dashboard/**/*.html': ['ng-html2js'],
+       '*.js': ['coverage'],
     },
     ngHtml2JsPreprocessor: {
       stripPrefix: 'app/',
@@ -112,7 +119,11 @@ module.exports = function (config) {
 
     // level of logging
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
-    logLevel: config.LOG_INFO
+    logLevel: config.LOG_INFO,
+     coverageReporter: {
+      type : 'lcov',
+      dir : 'coverage/'
+    }
 
     // Uncomment the following lines if you are using grunt's server to run the tests
     // proxies: {

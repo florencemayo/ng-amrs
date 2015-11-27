@@ -1,21 +1,22 @@
-<div class="panel" ng-class="{'panel-info':!patient.deathDate(), 'panel-danger':patient.deathDate()}" style="padding: 0px;">
+<div class="panel " ng-class="{'panel-info':!patient.deathDate(), 'panel-danger':patient.deathDate()}" style="padding: 0px;">
 	<div class="panel-heading ">
     <div class="container-fluid">
       <div class="row" style="font-size:large">
             <div class="col-sm-6">
-              <h5  style="padding-top: 10px">{{patient.fullNames() | titlecase}} ({{patient.genderFull()}})</h5>
-               <h5  style="padding-top: 10px">Age: {{patient.age()}} DOB: ({{patient.birthdate()| date:'dd-MM-yyyy'}})</h5>
-               <h5  style="padding-top: 10px">Phone Number: {{patient.phoneNumber()}} <span ng-if="patient.phoneNumber()==null">Not Available</span></h5>
-              <h5  style="padding-top: 10px">Health Center: {{patient.healthCenter()}}</h5>
+              <h5  style="padding-top: 10px"><b>Name :</b>{{patient.fullNames() | titlecase}} ({{patient.genderFull()}})</h5>
+               <h5  style="padding-top: 10px"> <b> Age : </b> {{patient.age()}} DOB: ({{patient.birthdate()| date:'dd-MM-yyyy'}})</h5>
+               <h5  style="padding-top: 10px"><b>Phone Number : </b> {{patient.phoneNumber()}} <span ng-if="patient.phoneNumber()==null">Not Available</span></h5>
+              <h5  style="padding-top: 10px"><b>Health Center : </b> {{patient.healthCenter()}}
+              </h5>
               </div>
         <div class="col-sm-6">
-          <h5  style="padding-top: 10px">AMRS UID: <span ng-if="patient.commonIdentifiers().ampathMrsUId">{{patient.commonIdentifiers().ampathMrsUId}}</span>
+          <h5  style="padding-top: 10px"><b>AMRS UID : </b> <span ng-if="patient.commonIdentifiers().ampathMrsUId">{{patient.commonIdentifiers().ampathMrsUId}}</span>
             <span ng-if="patient.commonIdentifiers().ampathMrsUId==null">Not Available</span></h5>
-          <h5  style="padding-top: 10px">AMRS MRN: <span ng-if="patient.commonIdentifiers().amrsMrn">{{patient.commonIdentifiers().amrsMrn}}</span>
+          <h5  style="padding-top: 10px"><b>AMRS MRN : </b> <span ng-if="patient.commonIdentifiers().amrsMrn">{{patient.commonIdentifiers().amrsMrn}}</span>
             <span ng-if="patient.commonIdentifiers().amrsMrn==null">Not Available</span></h5>
-          <h5  style="padding-top: 10px">CCC:<span ng-if="patient.commonIdentifiers().cCC"> {{patient.commonIdentifiers().cCC}} </span>
+          <h5  style="padding-top: 10px"><b>CCC :</b><span ng-if="patient.commonIdentifiers().cCC"> {{patient.commonIdentifiers().cCC}} </span>
             <span ng-if="patient.commonIdentifiers().cCC==null">Not Available</span></h5>
-          <h5  style="padding-top: 10px">National ID: <span ng-if="patient.commonIdentifiers().kenyaNationalId">{{patient.commonIdentifiers().kenyaNationalId}}</span>
+          <h5  style="padding-top: 10px"><b>National ID:</b> <span ng-if="patient.commonIdentifiers().kenyaNationalId">{{patient.commonIdentifiers().kenyaNationalId}}</span>
             <span ng-if="patient.commonIdentifiers().kenyaNationalId==null">Not Available</span></h5>
             </div>
       </div>
@@ -75,7 +76,7 @@
 		<div class="tab-content col-lg-10 ">
 			<div class="tab-pane fade in active panel panel-default" style="padding:4px;" id="tab1">
 				<div class="panel  panel-info" style="margin-bottom: 0px;">
-					<div class="panel-heading">Demographics</div>
+					<div class="panel-heading"> <h4>Demographics</h4></div>
 				</div>
 				<div style="margin-top: 2px;">
 					<patient-demographics></patient-demographics>

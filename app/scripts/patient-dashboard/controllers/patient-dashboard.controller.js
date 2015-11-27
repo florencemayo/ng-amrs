@@ -29,6 +29,5 @@
     function viewHivHistoricalSummary() {
       $scope.showHivHistoricalSummary = true;
     }
-
   }
 })();
