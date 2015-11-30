@@ -23,6 +23,7 @@
       'app.patientsearch',
       'app.patientdashboard',
       'app.clinicDashboard',
+      'app.schemaEditor',
       'app.formentry',
       'app.utils'
     ])
@@ -57,6 +58,12 @@
           url: '/clinical-dashboard/:locationuuid',
           templateUrl: 'views/clinic-dashboard/clinic-dashboard.html',
           controller: 'ClinicDashboardCtrl',
+          data: { requireLogin: true }
+        })
+        .state('schema-editor', {
+          url: '/schema-editor',
+          templateUrl: 'views/schema-editor/schema-editor.html',
+          controller: 'SyncAppController',
           data: { requireLogin: true }
         })
         .state('encounter', {

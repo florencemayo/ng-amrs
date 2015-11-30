@@ -1,0 +1,25 @@
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="Rodik">
+    <title>angular-json-editor Demo</title>
+
+    <Include the relevant css for the configured theme 
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+-->
+<form>
+
+<h2>JSON Schema</h2>
+<div class="container" ng-controller="SyncAppController">
+    <json-editor schema="mySchema" startval="myStartVal" on-change="onChange($editorValue)" buttons-controller="SyncAppController">
+<button type="submit" class="btn btn-success" ng-click="onSubmit($event)" ng-disabled="!isValid">
+            <span class="glyphicon glyphicon-check"></span>
+            Submit
+        </button>
+</json-editor>
+</div>
+</form>

@@ -52,6 +52,8 @@ module.exports = function (config) {
     'bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.min.js',
     'bower_components/spin.js/spin.js',
     'bower_components/angular-loading/angular-loading.js',
+    'bower_components/json-editor/dist/jsoneditor.js',
+    'bower_components/angular-json-editor/src/angular-json-editor.js',
     'bower_components/angular-mocks/angular-mocks.js',
     // endbower
       'app/scripts/**/*.module.js',

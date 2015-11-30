@@ -1,0 +1,35 @@
+{
+    "type": "object",
+    "title": "Item Object",
+    "required": true,
+    "additionalProperties": true,
+    "properties": {
+        "name": {
+            "type": "string",
+            "title": "Item Name",
+            "required": true,
+            "minLength": 1
+        },
+        "age": {
+            "type": "integer",
+            "title": "Age",
+            "required": true,
+            "min": 0
+        },
+        "isCool": {
+            "type": "boolean",
+            "title": "Is cool?",
+            "required": true
+        },
+        "info": {
+            "type": "object",
+            "name": "Information",
+            "properties": {
+                "phone": {
+                    "type": "integer",
+                    "name": "phone"
+                }
+            }
+        }
+    }
+}
