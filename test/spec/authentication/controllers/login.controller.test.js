@@ -70,6 +70,6 @@ jshint -W098, -W117, -W030
         authenticate();
         expect(login).to.equal(true);
       });
-    });
+    }); 
   });
 })();

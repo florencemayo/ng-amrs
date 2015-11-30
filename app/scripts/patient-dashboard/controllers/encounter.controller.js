@@ -66,5 +66,9 @@
       console.error('Error: EncounterController An error' + error +
         'occured while loading');
     }
+
+     //this is used for ordering the contents of table Encounter
+     vm.orderByField = 'EncounterModel.encounterDate()';
+     vm.reverseSort = false;
   }
 })();

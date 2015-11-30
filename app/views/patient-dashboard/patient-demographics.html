@@ -1,14 +1,44 @@
-<ul class="list-group">
-    <li class="list-group-item" style="font-size:large" ng-if="patient.fullNames()">Name: {{patient.fullNames() | titlecase }}</li>
-    <li class="list-group-item" style="font-size:large" ng-if="patient.healthCenter()">Health Center: {{patient.healthCenter()}}</li>
-    <li class="list-group-item" style="font-size:large" ng-if="patient.isTestorFakePatient()">Test Patient</li>
-    <li class="list-group-item markDeceased" style="font-size:large" ng-if="patient.deathDate()">Death Date: {{patient.deathDate()}}</li>
-    <li class="list-group-item" style="font-size:large" ng-if="patient.phoneNumber()">Phone Number: {{patient.phoneNumber()}}</li>
-    <li class="list-group-item" style="font-size:large" ng-if="patient.address().county">County: {{patient.address().county| titlecase }}</li>
-    <li class="list-group-item" style="font-size:large" ng-if="patient.address().subCounty">Sub-County: {{patient.address().subCounty| titlecase }}</li>
-    <li class="list-group-item" style="font-size:large" ng-if="patient.address().estateLandmark">Estate/Landmark: {{patient.address().estateLandmark| titlecase }}</li>
-    <li class="list-group-item" style="font-size:large" ng-if="patient.address().townVillage">Town/Village: {{patient.address().townVillage| titlecase }}</li>
-    <li class="list-group-item" style="font-size:large" ng-if="patient.address().stateProvince">State/Province: {{patient.address().stateProvince| titlecase }}</li>
-
-  </li>
-</ul>
+<table class="table table-hover" style="font-size:large">
+      <tbody>
+          <tr ng-if="patient.fullNames()"> 
+               <td> <b> Name : </b> </td>
+               <td> {{patient.fullNames() | titlecase }} </td>
+          </tr> 
+          <tr ng-if="patient.healthCenter()"> 
+               <td> <b>Health Center : </b></td>
+               <td> {{patient.healthCenter()}} </td>
+           </tr> 
+           <tr ng-if="patient.isTestorFakePatient()"> 
+               <td> <b>Test Patient :</b></td>
+               <td></td>
+           </tr> 
+           <tr  ng-if="patient.deathDate()"> 
+               <td><b>Death Date : </b></td>
+               <td>{{patient.deathDate()}}</td>
+           </tr> 
+           <tr ng-if="patient.phoneNumber()">
+               <td><b>Phone Number :</b> </td>
+               <td><b> {{patient.phoneNumber()}}</b></td>
+           </tr>
+           <tr ng-if="patient.address().county">
+               <td> <b>County : </b> </td>
+               <td>{{patient.address().county| titlecase }} </td>
+           </tr>
+           <tr ng-if="patient.address().subCounty">
+               <td> <b>Sub-County :</b> </td>
+               <td> {{patient.address().subCounty| titlecase }} </td>
+           </tr>
+           <tr ng-if="patient.address().estateLandmark">
+               <td><b> Estate/Landmark : </b></td> 
+               <td> {{patient.address().estateLandmark| titlecase }} </td>
+           </tr>
+           <tr ng-if="patient.address().townVillage">
+               <td> <b>Town/Village :</b></td>
+               <td> {{patient.address().townVillage| titlecase }}</td>
+           </tr>
+           <tr  ng-if="patient.address().stateProvince">
+               <td><b> State/Province :</b></td>
+               <td>{{patient.address().stateProvince| titlecase }}</td>
+           </tr>
+       </tbody>
+</table>

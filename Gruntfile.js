@@ -20,6 +20,7 @@ module.exports = function (grunt) {
     app: require('./bower.json').appPath || 'app',
     dist: 'dist'
   };
+  
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -392,7 +393,12 @@ module.exports = function (grunt) {
     karma: {
       unit: {
         configFile: 'test/karma.conf.js',
-        singleRun: true
+        singleRun: true,
+        plugins:[
+                  'karma-jasmine',
+                  'karma-coverage',
+                  'karma-phantomjs-launcher'
+       ],
       }
     }
   });
