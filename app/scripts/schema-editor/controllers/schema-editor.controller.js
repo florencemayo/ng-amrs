@@ -10,7 +10,7 @@
 
   SyncAppController.$inject = ['$rootScope', 'OpenmrsRestService', '$scope', '$log', 'filterFilter', '$state'];
 
-  function ASyncCtrl ($scope, $http, $timeout) {
+  function ASyncCtrl($scope, $http, $timeout) {
 
     // Load with $http
     $scope.mySchema = $http.get('../scripts/schema-editor/formschema/schema.json');

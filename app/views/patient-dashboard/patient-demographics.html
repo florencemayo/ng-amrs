@@ -1,9 +1,18 @@
-<table class="table table-hover" style="font-size:large">
+<table class="table table-hover">
       <tbody>
           <tr ng-if="patient.fullNames()"> 
-               <td> <b> Name : </b> </td>
+               <td> <b> Name : </b></td>
                <td> {{patient.fullNames() | titlecase }} </td>
           </tr> 
+          <tr>
+          <td><b> Date of Birth : </b></td>
+          <td>{{patient.birthdate()| date:'dd-MM-yyyy'}} ({{patient.age()}}&nbsp year(s))</td> 
+          </tr>
+          <tr>
+          <td> <b>Phone Number : </b></td>
+          <td> {{patient.phoneNumber()}}
+               <span ng-if="patient.phoneNumber()==null">Not Available</span></td>
+          </tr>
           <tr ng-if="patient.healthCenter()"> 
                <td> <b>Health Center : </b></td>
                <td> {{patient.healthCenter()}} </td>
@@ -40,5 +49,25 @@
                <td><b> State/Province :</b></td>
                <td>{{patient.address().stateProvince| titlecase }}</td>
            </tr>
-       </tbody>
+           <tr>
+           <td><b>AMRS UID : </b></td>
+           <td><span ng-if="patient.commonIdentifiers().ampathMrsUId">{{patient.commonIdentifiers().ampathMrsUId}}</span>
+            <span ng-if="patient.commonIdentifiers().ampathMrsUId==null">Not Available</span></td>
+           </tr>
+           <tr>
+           <td><b>AMRS MRN : </b> </td>
+           <td><span ng-if="patient.commonIdentifiers().amrsMrn">{{patient.commonIdentifiers().amrsMrn}}</span>
+            <span ng-if="patient.commonIdentifiers().amrsMrn==null">Not Available</span></td>
+           </tr>
+           <tr>
+           <td><b>CCC :</b></td>
+           <td><span ng-if="patient.commonIdentifiers().cCC"> {{patient.commonIdentifiers().cCC}} </span>
+            <span ng-if="patient.commonIdentifiers().cCC==null">Not Available</span></td>
+           </tr>
+           <tr>
+           <td><b>National ID:</td>
+           <td><span ng-if="patient.commonIdentifiers().kenyaNationalId">{{patient.commonIdentifiers().kenyaNationalId}}</span>
+            <span ng-if="patient.commonIdentifiers().kenyaNationalId==null">Not Available</span></td>
+           </tr>
+      </tbody>
 </table>

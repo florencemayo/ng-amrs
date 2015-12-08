@@ -5,8 +5,28 @@
   padding: 0.2em 0;
 }
 
+/*space navigation bar*/
+.navbar{
+  padding-left:  10%;
+  padding-right: 10%;
+}
+.navbar-fixed-top{
+   min-height: 10px;
+}
+.table{
+  min-width: 700px;
+}
+.panel{
+  min-width: 710px;
+}
+.panel-info{
+  min-width: 700px;
+}
+
+
 html, body {
-  padding: 0;
+  padding-left:  5%;
+  padding-right: 5%;
   padding-top: 29px;
 
 }
@@ -30,6 +50,7 @@ html, body {
   margin-bottom: 0;
   line-height: 40px;
   padding-bottom: 19px;
+
 }
 
 /* Custom page footer */
