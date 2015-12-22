@@ -20,7 +20,7 @@
     $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
 
     $scope.$watch('searchString', function (searchString) {
-      $scope.patients = [];
+      $scope.patients = []; 
       if (searchString && searchString.length > 2) {
         $scope.isBusy = true;
         OpenmrsRestService.getPatientService().getPatientQuery({q:searchString},
@@ -32,10 +32,10 @@
             $scope.currentPage = 1;
           }
         );
-      }
+       }
     });
-
-    $scope.loadPatient = function (patientUuid){
+   
+   $scope.loadPatient = function (patientUuid){
       /*
        Get the selected patient and save the details in the root scope
        so that we don't do another round trip to get the patient details
@@ -46,7 +46,7 @@
       });
       $state.go('patient', {uuid:patientUuid});
     };
-
+    
     $scope.pageChanged = function() {
       $log.log('Page changed to: ' + $scope.currentPage);
     };

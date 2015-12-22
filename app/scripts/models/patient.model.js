@@ -176,7 +176,7 @@
       modelDefinition.gender  = function(value){
         if(angular.isDefined(value)){
           _gender  = value;
-        }
+           }
         else{
           return _gender ;
         }
