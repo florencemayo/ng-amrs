@@ -40,7 +40,6 @@ jshint -W026, -W116, -W098, -W003, -W068, -W069, -W004, -W033, -W030, -W117
         //Void an existing person attribute and create a new one
         if (personAttributeUuid) {
           voidPersonAttribute(personAttribute, function(response) {
-            console.log('Voided a person attribute with uuid ' + personAttributeUuid);
           },
 
           function(error) {
@@ -113,7 +112,6 @@ jshint -W026, -W116, -W098, -W003, -W068, -W069, -W004, -W033, -W030, -W117
       _.each(personAttributes, function(attribute) {
         var personAttribute = {attribute:attribute,person:person};
         saveUpdatePersonAttribute(personAttribute, function(response) {
-          console.log('Person attribute value', JSON.stringify(response));
         },
 
        function(error) {
@@ -124,7 +122,6 @@ jshint -W026, -W116, -W098, -W003, -W068, -W069, -W004, -W033, -W030, -W117
 
     function getPersonAttributeValue(attributes, key) {
       var inp = JSON.stringify(attributes);
-      console.log(inp);
       var attributeType = key.split('_')[1].replace(/n/gi, '-');
       var val = _.filter(attributes, function(attribute_) {
         if (key !== undefined) {

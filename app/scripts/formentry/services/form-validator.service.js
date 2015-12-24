@@ -242,7 +242,8 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
 
                 var referenceQuestionkey = CurrentLoadedFormService.getFieldKeyFromGlobalById(params.referenceQuestionId);
                 var referenceQuestion = getFieldById_KeyFunction(params.referenceQuestionId);
-                if (referenceQuestion !== undefined) referenceQuestionkey = referenceQuestion.key;
+                if (referenceQuestion !== undefined)
+                    referenceQuestionkey = referenceQuestion.key;
 
                 fkey = referenceQuestionkey;
 
@@ -279,12 +280,12 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                 else fkey = CurrentLoadedFormService.getFieldKeyById(params.field, scope.fields)
 
                 _.each(params.value, function (val) {
-
                     result = scope.model[fkey] !== val
-                    if (i === 0) results = result;
-                    else results = results && result;
+                    if (i === 0)
+                        results = result;
+                    else
+                        results = results && result;
                     i = i + 1;
-
                 });
 
                 if (results === true) {
@@ -444,7 +445,8 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
         function convertArrayToString(array) {
             var converted = '[';
             for (var i = 0; i < array.length; i++) {
-                if (i !== 0) converted = converted + ",";
+                if (i !== 0)
+                    converted = converted + ",";
                 converted = converted + "'" + array[i] + "'";
             }
             converted = converted + ']';
@@ -463,7 +465,8 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
 
         function arrayContains(array, members) {
             if (Array.isArray(members)) {
-                if (members.length === 0) return true;
+                if (members.length === 0)
+                    return true;
                 var contains = true;
                 _.each(members, function (val) {
                     if (array.indexOf(val) === -1) {
@@ -493,7 +496,8 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
 
         function arrayContainsAny(array, members) {
             if (Array.isArray(members)) {
-                if (members.length === 0) return true;
+                if (members.length === 0)
+                    return true;
                 var contains = false;
                 _.each(members, function (val) {
                     if (array.indexOf(val) !== -1) {

@@ -11,7 +11,7 @@
 
   function factory() {
     var service = {
-      location: Location,
+      location: locaTion,
       toWrapper: toWrapper,
       toArrayOfWrappers: toArrayOfWrappers,
       fromArrayOfWrappers:fromArrayOfWrappers
@@ -19,7 +19,7 @@
 
     return service;
 
-    function Location(name_, uuId_, description_, address1_,  address2_,
+    function locaTion(name_, uuId_, description_, address1_,  address2_,
       cityVillage_, stateProvince_, country_, postalCode_, latitude_,
       longitude_, countyDistrict_, address3_, address4_, address5_, address6_,
       tags_, parentLocation_, childLocations_, attributes_) {
@@ -164,7 +164,7 @@
           return _address4;
         }
       };
-                  
+
       modelDefinition.address5 = function(value) {
         if (angular.isDefined(value)) {
           _address5 = value;
@@ -173,7 +173,7 @@
           return _address5;
         }
       };
-                                    
+
       modelDefinition.address6 = function(value) {
         if (angular.isDefined(value)) {
           _address6 = value;
@@ -247,7 +247,7 @@
 
     function toWrapper(openmrsModel){
       if(openmrsModel!==undefined){
-            var obj = new Location(openmrsModel.name, openmrsModel.uuid,
+            var obj = new locaTion(openmrsModel.name, openmrsModel.uuid,
         openmrsModel.description, openmrsModel.address1, openmrsModel.address2,
         openmrsModel.cityVillage, openmrsModel.stateProvince,
         openmrsModel.country, openmrsModel.postalCode, openmrsModel.latitude,
@@ -257,11 +257,8 @@
         openmrsModel.parentLocation, openmrsModel.childLocations,
         openmrsModel.attributes
       );
-
       return obj;
-        
       }
-  
     }
 
     function toArrayOfWrappers(openmrsLocationArray) {

@@ -59,11 +59,11 @@ jshint -W003, -W026
         };
 
     function loadSchedule() {
-          if ($scope.isBusy === true) return;
+          if ($scope.isBusy === true) 
+            return;
 
           $scope.isBusy = true;
           $scope.experiencedLoadingError = false;
-
           $scope.appointments = [];
 
           if ($scope.locationUuid && $scope.locationUuid !== '')
@@ -132,12 +132,12 @@ jshint -W003, -W026
 
     //calender view
     console.log('Selected==============>' + _this.moment());
-    scope.selected = _removeTime(scope.selected || _this.ClinicDashboardService.getMonth() || _this.moment());
+    scope.selected = removeTime(scope.selected || _this.ClinicDashboardService.getMonth() || _this.moment());
     scope.month = scope.selected.clone();
     var start = scope.selected.clone();
     start.date(1);
-    _removeTime(start.day(0));
-    _buildMonth(scope, start, scope.month);
+    removeTime(start.day(0));
+    buildMonth(scope, start, scope.month);
     scope.select = function(day) {
       this.ClinicDashboardService.setStartDate(day);
       scope.selected = day.date;
@@ -146,16 +146,16 @@ jshint -W003, -W026
 
     scope.next = function() {
       var next = _this.moment().month.clone();
-      _removeTime(next.month(next.month() + 1)).date(1);
+      removeTime(next.month(next.month() + 1)).date(1);
       scope.month.month(scope.month.month() + 1);
-      _buildMonth(scope, next, scope.month);
+      buildMonth(scope, next, scope.month);
     };
 
     scope.previous = function() {
           var previous = scope.month.clone();
-          _removeTime(previous.month(previous.month() - 1).date(1));
+          removeTime(previous.month(previous.month() - 1).date(1));
           scope.month.month(scope.month.month() - 1);
-          _buildMonth(scope, previous, scope.month);
+          buildMonth(scope, previous, scope.month);
         };
 
     scope.getData = function(day) {
@@ -167,32 +167,32 @@ jshint -W003, -W026
           scope.month = scope.selected.clone();
           var start = scope.selected.clone();
           start.date(1);
-          _removeTime(start.day(0));
+          removeTime(start.day(0));
 
-          _buildMonth(scope, start, scope.month);
+          buildMonth(scope, start, scope.month);
         };
 
   }
 
-  function _removeTime(date) {
+  function removeTime(date) {
       return date.day(0).hour(0).minute(0).second(0).millisecond(0);
     }
 
-  function _buildMonth(scope, start, month) {
+  function buildMonth(scope, start, month) {
       scope.weeks = [];
       var done = false;
       var date = start.clone();
       var monthIndex = date.month();
       var count = 0;
       while (!done) {
-        scope.weeks.push({ days: _buildWeek(date.clone(), month) });
+        scope.weeks.push({ days: buildWeek(date.clone(), month) });
         date.add(1, 'w');
         done = count++ > 2 && monthIndex !== date.month();
         monthIndex = date.month();
       }
     }
 
-  function _buildWeek(date, month) {
+  function buildWeek(date, month) {
       var days = [];
       for (var i = 0; i < 7; i++) {
         days.push({

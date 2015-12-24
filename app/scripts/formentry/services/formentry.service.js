@@ -8,7 +8,7 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
         .module('app.formentry')
         .factory('FormentryService', FormentryService);
 
-    FormentryService.$inject = ['$http', 'SearchDataService', 'moment', 
+    FormentryService.$inject = ['$http', 'SearchDataService', 'moment',
     'FormValidator', 'CurrentLoadedFormService', '$filter'];
 
     function FormentryService( $http, SearchDataService, moment, FormValidator,
@@ -24,7 +24,8 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
         };
 
         var obs_id = 0;
-        var g_fields; // var to hold all the fields on a form
+        // var to hold all the fields on a form
+        var g_fields;
         var readyFields = [];
         var loaded = false;
 
@@ -34,36 +35,27 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
           //Search from the schema that is being currently built
           if(readyFields.length>0)
           {
-            // _.each(readyFields, function(_field){
               _.some(readyFields, function(_field){
-              // console.log(_field)
               if(_field.type !== 'repeatSection' && _field.type !== undefined)
               {
-                if (_field.key === id_key || _field.data.id === id_key )
-                {
+                if (_field.key === id_key || _field.data.id === id_key){
                   selected_field =_field;
-                  // return selected_field;
                   return true;
                 }
               }
               else if (_field.type === 'repeatSection'){
-                // _.each(_field.templateOptions.fields[0].fieldGroup, function(_field_){
                 _.some(_field.templateOptions.fields[0].fieldGroup, function(_field_){
                   if(_field_.key === id_key || _field_.data.id === id_key)
                   {
                     selected_field =_field_;
-                    // return selected_field;
                     return true;
                   }
                 });
               }
               else {
-                // _.each(_field.fieldGroup, function(__field_){
                 _.some(_field.fieldGroup, function(__field_){
-                  if( __field_.key === id_key ||  __field_.data.id === id_key)
-                  {
+                  if( __field_.key === id_key ||  __field_.data.id === id_key){
                     selected_field = __field_;
-                    // return selected_field;
                     return true;
                   }
                 });
@@ -71,51 +63,39 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
             })
           }
           //search form the complete formly schema that is organized in tabs
-          if (searchFields === undefined) searchFields = g_fields;
+          if (searchFields === undefined)
+            searchFields = g_fields;
           // start by looping through the tabs
           if (selected_field === undefined)
           {
-            // _.each(searchFields, function(page){
             _.some(searchFields, function(page){
               //loop through the sections in a page
-              // _.each(page.form.fields, function(_section){
               _.some(page.form.fields, function(_section){
                 /*the assumption is that all questions will be in a section
                 but maybe we may have a question that is not isn a section
                 */
-                if(_section.type === 'section')
-                {
+                if(_section.type === 'section'){
                   // _.each(_section.templateOptions.fields[0].fieldGroup, function (_field) {
                   _.some(_section.data.fields, function (_field) {
                     // body...
-                    if(_field.type !== 'section' && _field.type !== 'group' && _field.type !== 'repeatSection' && _field.type !== undefined)
-                    {
+                    if(_field.type !== 'section' && _field.type !== 'group' && _field.type !== 'repeatSection' && _field.type !== undefined){
                       // console.log('testing selected key_first opt ', _field)
-                      if (_field.key === id_key || _field.data.id === id_key )
-                      {
+                      if (_field.key === id_key || _field.data.id === id_key){
                         selected_field =_field;
-                        // return selected_field;
                         return true;
                       }
                     }
                     else if (_field.type === 'repeatSection'){
-                      // _.each(_field.templateOptions.fields[0].fieldGroup, function(_field_){
                       _.some(_field.templateOptions.fields[0].fieldGroup, function(_field_){
-                        if(_field_.key === id_key || _field_.data.id === id_key)
-                        {
+                        if(_field_.key === id_key || _field_.data.id === id_key){
                           selected_field =_field_;
-                          // return selected_field;
                           return true;
                         }
                       });
-                    }
-                    else {
-                      // _.each(_field.fieldGroup, function(__field_){
+                    } else {
                       _.some(_field.fieldGroup, function(__field_){
-                        if( __field_.key === id_key ||  __field_.data.id === id_key)
-                        {
+                        if( __field_.key === id_key ||  __field_.data.id === id_key){
                           selected_field = __field_;
-                          // return selected_field;
                           return true;
                         }
                       });
@@ -125,7 +105,7 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
               });
             });
           }
-          if (selected_field === undefined) //console.log('No matching Field found')
+          if (selected_field === undefined)
           return selected_field;
         }
         return service;
@@ -133,13 +113,12 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
         function getFormSchema(formName, callback) {
           var schema = {};
           // this should de dropped once we align all forms related issues
-          if (formName !== undefined)
-          {
+          if (formName !== undefined){
             formName = formName + '.json';
-          }
-          else {
+          } else {
               formName = 'form1.json';
           }
+
           var url = 'scripts/formentry/formschema/'+formName;
           $http.get(url, {cache: true})
             .success(function(response) {
@@ -151,18 +130,18 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
               .error(function(data, status, headers, config) {
                 //console.log(data);
                 //console.log(status);
-                if (status === 404) {alert('Form Resource not Available');}
+                if (status === 404){
+                  alert('Form Resource not Available');
+                }
             });
         }
 
         function getCompiledFormSchema(formName, callback) {
           var schema = {};
           // this should de dropped once we align all forms related issues
-          if (formName !== undefined)
-          {
+          if (formName !== undefined){
             formName = formName + '.compiled.json';
-          }
-          else {
+          } else {
               formName = 'form1.compiled.json';
           }
           $http.get('scripts/formentry/formschema/'+formName)
@@ -175,24 +154,24 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
               .error(function(data, status, headers, config) {
                 //console.log(data);
                 //console.log(status);
-                if (status === 404) {alert('Form Resource not Available');}
+                if (status === 404){
+                  alert('Form Resource not Available');
+                }
             });
         }
 
         /*
         private method to obs without obs groups
         */
-        function getObsValue(key, obs)
-        {
+        function getObsValue(key, obs){
           var val = _.find(obs,function(obs_){
-            // console.log('Check Obs', obs_)
-            if(obs_.concept.uuid === convertKey_to_uuid(key.split('_')[1])) return obs_;
+            if(obs_.concept.uuid === convertKey_to_uuid(key.split('_')[1]))
+              return obs_;
           });
           return val;
         }
 
-        function getObsValueSelect(key, obs)
-        {
+        function getObsValueSelect(key, obs){
           var field_key = key.key
           var opts = [];
           _.each(key.templateOptions.options, function(select_item){
@@ -200,10 +179,7 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
           });
           var val = _.find(obs,function(obs_){
             // console.log('Check Obs', obs_)
-            if(obs_.concept.uuid === convertKey_to_uuid(field_key.split('_')[1]))
-            {
-              // console.log('Check Obs', obs_)
-              // if(opts.indexOf(obs_.value.uuid) !== -1)
+            if(obs_.concept.uuid === convertKey_to_uuid(field_key.split('_')[1])){
               return obs_;
             }
           });
@@ -213,12 +189,10 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
         /*
         Private method to get obs group data
         */
-        function getObsGroupValue(key, obs)
-        {
+        function getObsGroupValue(key, obs){
           var val = _.filter(obs, function(obs_){
-          //console.log(obs);
-          if(key !== undefined)
-            if(obs_.concept.uuid === convertKey_to_uuid(key.split('_')[1])) return obs_;
+          if(key !== undefined && obs_.concept.uuid === convertKey_to_uuid(key.split('_')[1]))
+              return obs_;
           });
           return val;
         }
@@ -226,8 +200,7 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
         /*
         Method to auto/prefill the form with existing data from OpenMRS
         */
-        function getEncounterHandler(enc_data, formlySchema)
-        {
+        function getEncounterHandler(enc_data, formlySchema){
           /*
           Each page/tab has various sections
           each section has a set of various questions/data elements
@@ -235,18 +208,18 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
           */
           //geting obs data without obs groups
           var obs_data = _.filter(enc_data.obs,function(obs){
-            if(obs.groupMembers === null) return obs
+            if(obs.groupMembers === null)
+              return obs;
           });
           //geting obs data with obs groups
           var obs_group_data =  _.filter(enc_data.obs,function(obs){
-            if(obs.groupMembers !== null)return obs;
+            if(obs.groupMembers !== null)
+              return obs;
           });
           //looping thro' individual pages
           _.each(formlySchema, function(page){
             //looping thro each section in the page and updating the model
             var model = page.form.model;
-            // console.log('Page Test Model ');
-            // console.log(model)
             _.each(page.form.fields, function(_section){
               if (_section.type === 'section')
               {
@@ -260,72 +233,50 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                 var sec_data = model[sec_key] = {};
                 //loop through the individual fields in the section and update accordingly
                 _.each(_section.data.fields, function(_field){
-                  // console.log('Fields Available...')
-                  // console.log(_field)
                   var field_key;
-                  if(_field.key === 'encounterDate')
-                  {
+                  if(_field.key === 'encounterDate'){
                     sec_data['encounterDate'] = enc_data.encounterDatetime;
                     _field.data['init_val'] = enc_data.encounterDatetime;
-                  }
-                  else if(_field.key === 'encounterProvider')
-                  {
-                    if (enc_data.provider !== undefined && enc_data.provider !== null)
-                    {
+                  } else if(_field.key === 'encounterProvider'){
+                    if (enc_data.provider !== undefined && enc_data.provider !== null){
                       sec_data['encounterProvider'] = enc_data.provider.uuid;
                       _field.data['init_val'] = enc_data.provider.uuid;
-                      //console.log('test Model');
-                      //console.log(model);
                     }
-                  }
-                  else if(_field.key === 'encounterLocation')
-                  {
-                    if (enc_data.location !== undefined)
-                    {
+                  } else if(_field.key === 'encounterLocation'){
+                    if (enc_data.location !== undefined){
                       sec_data['encounterLocation'] = enc_data.location.uuid;
                       _field.data['init_val'] = enc_data.location.uuid;
-                      //console.log('test Model');
-                      //console.log(model);
                     }
-                  }
-                  else if(_field.type === 'select' || _field.type === 'radio' || _field.type === 'ui-select-extended'|| _field.type==='concept-search-select')
-                  {
+                  } else if(_field.type === 'select' || _field.type === 'radio' || _field.type === 'ui-select-extended'|| _field.type==='concept-search-select'){
                     field_key = _field.key;
-                    // var val = getObsValue(field_key, obs_data);
                     var val = getObsValueSelect( _field, obs_data);
-                    // console.log('initial value',val)
-                    if (val !== undefined)
-                    {
-                      if(val.value !== null)
-                      {
+                    if (val !== undefined){
+                      if(val.value !== null){
                         sec_data[field_key] = val.value.uuid;
                         _field.data['init_val'] = val.value.uuid;
-                        _field.data['uuid'] = val.uuid; //obs uuid
-                        // console.log('updated field',_field)
+                        //obs uuid
+                        _field.data['uuid'] = val.uuid;
                       }
                     }
-                  }
-                  else if(_field.type === 'multiCheckbox')
-                  {
+                  } else if(_field.type === 'multiCheckbox'){
                     field_key = _field.key;
                     var multiArr = [];
                     var multi_uuid = [];
                     var val = _.filter(obs_data,function(obs){
-                      if(obs.concept.uuid === convertKey_to_uuid(field_key.split('_')[1])) return obs;
+                      if(obs.concept.uuid === convertKey_to_uuid(field_key.split('_')[1]))
+                        return obs;
                     });
-                    //console.log('matching multiCheckbox:');
-                    //console.log(val);
                     if (val !== undefined) {
                       _.each(val, function(obs){
                         multiArr.push(obs.value.uuid);
                         multi_uuid.push(obs.uuid);
-                        });
+                      });
                         sec_data[field_key] = multiArr;
                         _field.data['init_val'] = multiArr;
-                        _field.data['uuid'] = multi_uuid; //obs uuid
+                        //obs uuid
+                        _field.data['uuid'] = multi_uuid;
                     }
-                  }
-                  else if (_field.type === undefined) {
+                  } else if (_field.type === undefined) {
                     // for grouped non repeating fields
                     // console.log('Field Data')
                     // console.log(_field)
@@ -335,48 +286,40 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                     var group_val = {};
                     _.each(_field.fieldGroup, function (_group_field) {
                       // body...
-                      if(_.contains(field_key, 'unamed')) // using the grouping fields
-                      {
-                        if(_group_field.type !== 'multiCheckbox')
-                        {
-                          if(_.contains(_group_field.key, 'obsDate'))
-                          {
+                      // using the grouping fields
+                      if(_.contains(field_key, 'unamed')){
+                        if(_group_field.type !== 'multiCheckbox'){
+                          if(_.contains(_group_field.key, 'obsDate')){
                             var val = getObsValue(_group_field.key, obs_data);
-                            if(val !== undefined)
-                            {
-                              // console.log('Obs Date Key', _group_field.key);
-                              // console.log('Obs Date value', val);
+                            if(val !== undefined){
                               group_val[_group_field.key] = val.obsDatetime;
                               _group_field.data['init_val'] = val.obsDatetime;
-                              _group_field.data['uuid'] = val.uuid; //obs uuid
+                               //obs uuid
+                              _group_field.data['uuid'] = val.uuid;
                             }
-                          }
-                          else {
+                          } else {
                             var val = getObsValue(_group_field.key, obs_data);
-                            if(val !== undefined)
-                            {
-                              if(typeof val.value === 'object')
-                              {
+                            if(val !== undefined){
+                              if(typeof val.value === 'object'){
                                 group_val[_group_field.key] = val.value.uuid;
                                 _group_field.data['init_val'] = val.value.uuid;
-                                _group_field.data['uuid'] = val.uuid; //obs uuid
-                              }
-                              else {
+                                 //obs uuid
+                                _group_field.data['uuid'] = val.uuid;
+                              } else {
                                 group_val[_group_field.key] = val.value;
                                 _group_field.data['init_val'] = val.value;
-                                _group_field.data['uuid'] = val.uuid; //obs uuid
+                                 //obs uuid
+                                _group_field.data['uuid'] = val.uuid;
                               }
                             }
                           }
-                        }
-                        else {
+                        } else {
                           var multiArr = [];
                           var multi_uuid = [];
                           var val = _.filter(obs_data,function(obs){
-                            if(obs.concept.uuid === convertKey_to_uuid(field_key.split('_')[1])) return obs;
+                            if(obs.concept.uuid === convertKey_to_uuid(field_key.split('_')[1]))
+                              return obs;
                           });
-                          //console.log('matching multiCheckbox:');
-                          //console.log(val);
                           if (val !== undefined) {
                             _.each(val, function(obs){
                               multiArr.push(obs.value.uuid);
@@ -385,89 +328,81 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
 
                               group_val[_group_field.key] = multiArr;
                               _group_field.data['init_val'] = multiArr;
-                              _group_field.data['uuid'] = multi_uuid; //obs uuid
+                               //obs uuid
+                              _group_field.data['uuid'] = multi_uuid;
                           }
                         }
-                        if(typeof group_val === 'object')
-                        {
+
+                        if(typeof group_val === 'object'){
                           sec_data[field_key] = group_val;
                         }
-                      }
-                      else {
-                        //valid group uuids
-                        // console.log('This Section Field')
-                        // console.log(field_key);
-                        // console.log('OBS GROUP', obs_group_data)
+
+                      } else {
                         var group_data = getObsGroupValue(field_key, obs_group_data);
-                        // console.log('NON REPEATING SEC DATA TEST');
-                        //console.log(group_data)
-                        if(group_data !== undefined)
-                        {
-                          if(_group_field.type !== 'multiCheckbox')
-                          {
-                             if(_.contains(_group_field.key, 'obsDate'))
-                             {
+
+                        if(group_data !== undefined){
+                          if(_group_field.type !== 'multiCheckbox'){
+                             if(_.contains(_group_field.key, 'obsDate')){
                                var val = _.find(group_data[0].groupMembers, function(obs){
-                                 if(obs.concept.uuid === convertKey_to_uuid(_group_field.key.split('_')[1])) return obs;
+                                 if(obs.concept.uuid === convertKey_to_uuid(_group_field.key.split('_')[1]))
+                                  return obs;
                                });
-                               if(val !== undefined)
-                               {
+                               if(val !== undefined){
                                  group_val[_group_field.key] = val.obsDatetime;
                                  _group_field.data['init_val'] = val.obsDatetime;
-                                 _group_field.data['uuid'] = val.uuid; //obs uuid
+                                  //obs uuid
+                                 _group_field.data['uuid'] = val.uuid;
                                }
-                             }
-                             else {
+                             }else {
                               var val;
                               var this_val
-                               if(group_data.length>0)
-                               {
+                               if(group_data.length>0){
                                  _.each(group_data, function(obs){
                                    this_val = _.find(obs.groupMembers, function(obs_var){
                                      //console.log(obs)
-                                     if(obs_var.concept.uuid === convertKey_to_uuid(_group_field.key.split('_')[1])) return obs_var;
+                                     if(obs_var.concept.uuid === convertKey_to_uuid(_group_field.key.split('_')[1]))
+                                      return obs_var;
                                    });
                                    if (this_val !== undefined) val = this_val;
                                  })
                                }
                               //  console.log(val)
                               //  console.log('Key: ', _group_field.key.split('_')[1])
-                               if(val !== undefined)
-                               {
+                               if(val !== undefined){
                                  // console.log('current key: '+ key);
                                  // console.log(field.model[key]);
                                  if(typeof val.value === 'object')
                                  {
                                    group_val[_group_field.key] = val.value.uuid;
                                    _group_field.data['init_val'] = val.value.uuid;
-                                   _group_field.data['uuid'] = val.uuid; //obs uuid
-                                 }
-                                 else {
+                                    //obs uuid
+                                   _group_field.data['uuid'] = val.uuid;
+                                 } else {
                                    group_val[_group_field.key] = val.value;
                                    _group_field.data['init_val'] = val.value;
-                                   _group_field.data['uuid'] = val.uuid; //obs uuid
+                                    //obs uuid
+                                   _group_field.data['uuid'] = val.uuid;
                                  }
                                }
                              }
-                           }
-                           else {
+                           } else {
                              var val = [];
                              var this_val;
                              //if the field group section field is a multi select
-                             if(group_data.length>0)
-                             {
+                             if(group_data.length>0){
                                _.each(group_data, function(obs){
                                  this_val = _.filter(obs.groupMembers, function(obs_var){
                                    //console.log(obs)
-                                   if(obs_var.concept.uuid === convertKey_to_uuid(_group_field.key.split('_')[1])) return obs_var;
+                                   if(obs_var.concept.uuid === convertKey_to_uuid(_group_field.key.split('_')[1]))
+                                    return obs_var;
                                  });
-                                 if (this_val !== undefined) val.push(this_val) ;
+                                 if (this_val !== undefined)
+                                  val.push(this_val);
                                })
                              }
                              var multiArr = [];
                              var multi_uuid = [];
-                             if(val !== undefined)
-                             {
+                             if(val !== undefined){
                                _.each(val, function(data){
                                  if(angular.isArray(data))
                                  {
@@ -475,42 +410,34 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                                      multiArr.push(d.value.uuid);
                                      multi_uuid.push(d.uuid);
                                    })
-                                 }
-                                 else {
+                                 } else {
                                    multiArr.push(data.value.uuid);
                                    multi_uuid.push(data.uuid);
                                  }
                                });
                                group_val[_group_field.key] = multiArr;
                                _group_field.data['init_val'] = multiArr;
-                               _group_field.data['uuid'] = multi_uuid; //obs uuid
+                                //obs uuid
+                               _group_field.data['uuid'] = multi_uuid;
                              }
                            }
-                          //  console.log('Group Value');
-                          //  console.log(group_val)
-                           if(typeof group_val==='object')
-                           {
-                             if(group_val!==null || group_val !== '' || group_val !== '')
-                             {
+                           if(typeof group_val==='object'){
+                             if(group_val!==null || group_val !== '' || group_val !== ''){
                                 sec_data[field_key] = group_val;
                              }
                            }
                         }
                       }
                     });
-                  }
-                  else if(_field.type === 'repeatSection')
-                  {
+                  } else if(_field.type === 'repeatSection') {
                     //groupped fields
                     var repeating_fields
                     field_key = _field.key;
                     var group_data = getObsGroupValue(field_key, obs_group_data);
                     var field_keys = {};
                     var multiArr = [];
-                    // console.log('REPEATING SEC DATA TEST');
-                    // console.log('Group Vaaaal ',group_data)
-                    if (group_data !== undefined)
-                    {
+
+                    if (group_data !== undefined){
                       _.each(_field.templateOptions.fields[0].fieldGroup, function (_repeating_field) {
                         // body...
                         // console.log('getting Here ',_repeating_field)
@@ -520,24 +447,18 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                         var arr_uuid = [];
                         _.each(group_data, function(_data){
                           _.each(_data.groupMembers, function(obs){
-                            // console.log('getting Here ', obs)
                             if(obs.concept.uuid === convertKey_to_uuid(_repeating_field.key.split('_')[1])){
-                              // console.log('Concept uuid',convertKey_to_uuid(_repeating_field.key.split('_')[1]));
-                              // console.log(obs)
-                              if (typeof obs.value === 'object')
-                              {
+                              if (typeof obs.value === 'object'){
                                 arr.push(obs.value.uuid);
                                 arr_uuid.push(obs.uuid);
-                              }
-                              else {
+                              } else {
                                 arr.push(obs.value);
                                 arr_uuid.push(obs.uuid);
                               }
                             }
                           });
                         });
-                        if(arr.length>0)
-                        {
+                        if(arr.length>0){
                           _repeating_field.data['init_val'] = arr;
                           _repeating_field.data['uuid'] = arr_uuid;
                           //initialize the array for the next iteration
@@ -551,32 +472,22 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                         var arr_uuid = [];
                         _.each(_data.groupMembers, function(obs){
                           //assumed row data
-                          if(field_keys[obs.concept.uuid])
-                          {
+                          if(field_keys[obs.concept.uuid]){
                             //  var colKey = 'obs_' + createFieldKey(obs.concept.uuid)
                              var colKey = field_keys[obs.concept.uuid].key
                              //console.log('columns: '+colKey);
-                             if(field_keys[obs.concept.uuid].type === 'multiCheckbox')
-                             {
+                             if(field_keys[obs.concept.uuid].type === 'multiCheckbox'){
                                //_repeating_field.data['uuid'] = obs.uuid; //obs uuid (Not well done yet)
-                               if (typeof obs.value === 'object')
-                               {
+                               if (typeof obs.value === 'object'){
                                  arr.push(obs.value.uuid);
-                                 //rowVal[colKey] = obs.value.uuid
-                                 //_repeating_field.data['init_val'] = obs.value.uuid;
-                               }
-                               else {
+                               } else {
                                  arr.push(obs.value);
-                                 //rowVal[colKey] = obs.value
-                                 //_repeating_field.data['init_val'] = obs.value;
                                }
-                               if (arr.length>0)
-                               {
+                               
+                               if (arr.length>0){
                                  rowVal[colKey] = arr;
-                                 //_repeating_field.data['init_val'] = arr;
                                }
-                             }
-                             else {
+                             } else {
                                //_repeating_field.data['uuid'] = obs.uuid; //obs uuid
                                if (typeof obs.value === 'object')
                                {
@@ -590,8 +501,7 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                              }
                           }
                         });
-                        if(typeof rowVal==='object')
-                        {
+                        if(typeof rowVal==='object') {
                           if(!_.isEmpty(rowVal))multiArr.push(rowVal);
                         }
                       });
@@ -599,26 +509,23 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                     // console.log('repeating values test');
                     // console.log(multiArr)
                     sec_data[field_key] = multiArr;
-                  }
-                  else
-                  {
+                  } else {
                     // console.log('Other Fields Available...')
                     // console.log(_field.type)
                     // console.log(_field)
                     field_key = _field.key;
                     var val = getObsValue(field_key, obs_data);
-                    if (val !== undefined)
-                    {
-                      if (typeof val.value === 'object')
-                      {
+                    if (val !== undefined) {
+                      if (typeof val.value === 'object') {
                         sec_data[field_key] = val.value.uuid;
                         _field.data['init_val'] = val.value.uuid;
-                        _field.data['uuid'] = val.uuid; //obs uuid
-                      }
-                      else {
+                         //obs uuid
+                        _field.data['uuid'] = val.uuid;
+                      } else {
                         sec_data[field_key] = val.value;
                         _field.data['init_val'] = val.value;
-                        _field.data['uuid'] = val.uuid; //obs uuid
+                         //obs uuid
+                        _field.data['uuid'] = val.uuid;
                       }
                     }
                   }
@@ -646,65 +553,47 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
           getEncounterHandler(encData, formlySchema);
         }
 
-        function validateForm()
-        {
-
+        function validateForm(){
         }
 
-        function validateFieldFormat(sel_field)
-        {
+        function validateFieldFormat(sel_field){
           //validate the field to see if it is in the right format before creating the formly equavalent
           var pass = true;
-          if(sel_field.type === 'date')
-          {
+          if(sel_field.type === 'date'){
             //check it has validator provided
-            if(sel_field.validators.length>0)
-            {
-              if(!sel_field.validators[0].hasOwnProperty('type'))
-              {
+            if(sel_field.validators.length>0){
+              if(!sel_field.validators[0].hasOwnProperty('type')){
                 pass = false;
                 console.log('This field is a Date type field and you must provide validators', sel_field);
                 console.log('Add this: "validators":[{"type":"date"}]')
               }
-            }
-            else {
+            } else {
               pass = false;
               console.log('This field a Date type field and must provide validators', sel_field);
               console.log('Add this: "validators":[{"type":"date"}]')
             }
-          }
-          else if(sel_field.showDate === 'true')
-          {
+          } else if(sel_field.showDate === 'true'){
             //check it has validator provided
-            if(sel_field.validators.length>0)
-            {
-              if(!sel_field.validators[0].hasOwnProperty('type'))
-              {
+            if(sel_field.validators.length>0){
+              if(!sel_field.validators[0].hasOwnProperty('type')){
                 pass = false;
                 console.log('This field is a Date type field and you must provide validators', sel_field);
                 console.log('Add this: "validators":[{"type":"date"}]')
               }
-            }
-            else {
+            } else {
               pass = false;
               console.log('This field a Date type field and must provide validators', sel_field);
               console.log('Add this: "validators":[{"type":"date"}]')
             }
-          }
-          else if (sel_field.concept === undefined || sel_field.concept === '')
-          {
+          } else if (sel_field.concept === undefined || sel_field.concept === ''){
             pass = false;
             console.log('This field is missing the concept attribute', sel_field);
             console.log('Add this: "concept:concept_uuid')
-          }
-          else if (sel_field.type === undefined || sel_field.type === '')
-          {
+          } else if (sel_field.type === undefined || sel_field.type === ''){
             pass = false;
             console.log('This field is missing the type attribute', sel_field);
             console.log('Add this: "type:date/number/select/radio/multiCheckbox')
-          }
-          else if (sel_field.label === undefined || sel_field.label === '')
-          {
+          } else if (sel_field.label === undefined || sel_field.label === ''){
             pass = false;
             console.log('This field is missing the label attribute', sel_field);
             console.log('Add this: "label:your label of choice')
@@ -715,8 +604,7 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
         /*
         Methdod to get all the sections in a schema
         */
-        function getFormSections (formly_schema)
-        {
+        function getFormSections (formly_schema){
           var sections = [];
           _.each(formly_schema, function(page){
             _.each(page.form.fields, function(section){
@@ -731,8 +619,7 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
         for fields that have been deleted from the model
         This method is important for editing an existing form
         */
-        function findValuesToVoid(key, searchSpace)
-        {
+        function findValuesToVoid(key, searchSpace){
           var data=[];
           _.each(searchSpace.data.fields, function(field){
             if(field.type === 'repeatSection' && key === field.key)
@@ -744,8 +631,8 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
           });
           return data;
         }
-        function simpleFind(key, searchSpace)
-        {
+
+        function simpleFind(key, searchSpace){
           var data = angular.copy(searchSpace);
           var result = _.find(data, function(field){
             return field.key === key;
@@ -769,8 +656,7 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                 data =_field;
                 // console.log('matched field',_field);
               }
-            }
-            else if (_field.type === 'repeatSection'){
+            } else if (_field.type === 'repeatSection'){
               _.each(_field.templateOptions.fields[0].fieldGroup, function(_field_){
                 if(_field_.key === _field_key)
                 {
@@ -778,8 +664,7 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                   // console.log('matched field-repeating field',_field_);
                 }
               });
-            }
-            else {
+            } else {
               _.each(_field.fieldGroup, function(__field_){
                 if( __field_.key === _field_key)
                 {
@@ -791,8 +676,10 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
           });
           // console.log('Testing the revised code with new behavihoour: ');
           // console.log(data);
-          if(!_.isEmpty(data)) return data.data;
-          else return data;
+          if(!_.isEmpty(data))
+            return data.data;
+          else
+            return data;
         }
 
         /*
@@ -802,10 +689,8 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
         {
           _.each(Object.keys(groupValues), function(group_member){
             //console.log(groupValues[group_member])
-            if (groupValues[group_member] !== undefined)
-            {
-              if (group_member.startsWith('obsDate'))
-              {
+            if (groupValues[group_member] !== undefined){
+              if (group_member.startsWith('obsDate')){
                 var init_data = getInitialFieldValue(group_member, section);
                 var sl_obs_id = group_member.slice(7).split('_')[0];
                 var sl_obs_key = group_member.split('_')[1]
@@ -815,30 +700,26 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                 var value_ = getFormattedValue(groupValues[group_member]);
                 var concept_ = convertKey_to_uuid(sl_obs_key);
                 var value2_ = getFormattedValue(groupValues['obs' + sl_obs_id + '_' + sl_obs_key]);
-                if (typeof init_data === 'object')
-                {
+                
+                if (typeof init_data === 'object'){
                   date_val = init_data.init_val;
                 }
-                if (typeof init_data_1 === 'object')
-                {
+                
+                if (typeof init_data_1 === 'object'){
                   obs_val = init_data_1.init_val;
                 }
-                if (date_val !== undefined || obs_val !== undefined)
-                {
-                  if(date_val !== value_ || obs_val !== value2_)
-                  {
+                
+                if (date_val !== undefined || obs_val !== undefined){
+                  if(date_val !== value_ || obs_val !== value2_){
                     //check if the value is dropped so that we can void it
-                    if(value_ === null || value2_ === null || value_ === '' || value2_ === '' || value_ === 'null' || value2_ === 'null')
-                    {
+                    if(value_ === null || value2_ === null || value_ === '' || value2_ === '' || value_ === 'null' || value2_ === 'null'){
                       // console.log('Executing Obs to void - 1217')
                       obs.push({uuid:init_data.uuid, voided:true});
-                    }
-                    else {
+                    } else {
                       obs.push({uuid:init_data.uuid, obsDatetime:value_, concept:concept_, value:value2_});
                     }
                   }
-                }
-                else {
+                } else {
                   //new val being added
                   obs.push({obsDatetime:value_, concept:concept_, value:value2_});
                 }
@@ -850,29 +731,23 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
         /*
         private method to generate/create paylod for general obs
         */
-        function createPayloadNonObject(passed_val, key, obs, section)
-        {
+        function createPayloadNonObject(passed_val, key, obs, section){
           var value_ = getFormattedValue(passed_val);
           var concept_ = convertKey_to_uuid(key.split('_')[1]);
           var init_data = getInitialFieldValue(key, section);
           // console.log('field key -1353', key, 'section:',obj)
           // console.log('init_data -1354', init_data)
           var obs_val;
-          if (typeof init_data === 'object')
-          {
+          if (typeof init_data === 'object'){
             obs_val = init_data.init_val;
           }
-          if (obs_val !== undefined)
-          {
-            if(obs_val !== value_)
-            {
+          if (obs_val !== undefined){
+            if(obs_val !== value_){
               //check if the value is dropped so that we can void it
-              if(passed_val ==='null' || passed_val  === null || passed_val  ==='')
-              {
+              if(passed_val ==='null' || passed_val  === null || passed_val  ===''){
                 // console.log('Executing Obs to void -- 1253')
                 obs.push({uuid:init_data.uuid, voided:true, value:obs_val, concept:concept_});
-              }
-              else {
+              } else {
                 //console.log('Obsuuid - 1264',init_data)
                 obs.push({uuid:init_data.uuid,concept:concept_, value:value_});
               }
@@ -1381,7 +1256,8 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                           _.each(Object.keys(groupValues), function(group_member){
                             if (groupValues[group_member] !== undefined)
                             {
-                              if(typeof groupValues[group_member] === 'object')// array object
+                              // array object
+                              if(typeof groupValues[group_member] === 'object')
                               {
                                 // console.log('OBJECT TYPE')
                                 // console.log('Testing Object Vals');
@@ -1447,8 +1323,10 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
           var pageFields = [];
           var field ={};
           var section_id = 0;
-          var gpSectionRnd = 0 ; //this a random number for grp sections without an obs group
-          var i=0; //page id
+           //this a random number for grp sections without an obs group
+          var gpSectionRnd = 0;
+          //page id
+          var i=0;
 
           _.each(pages, function(page){
             pageFields = [];
@@ -1508,7 +1386,8 @@ jshint -W106, -W052, -W098, -W003, -W068, -W004, -W033, -W030, -W117, -W116, -W0
                       required:required
                     },
                     validators: {
-                      dateValidator: FormValidator.getDateValidatorObject(sec_field.validators[0]) //this  will require refactoring as we move forward
+                      //this  will require refactoring as we move forward
+                      dateValidator: FormValidator.getDateValidatorObject(sec_field.validators[0])
                     }
                   }
                   addToReadyFields(field)
@@ -1654,7 +1533,8 @@ function addFieldToValidationMetadata(field, section, page, typeOfField){
   */
   function createFieldKey(key)
   {
-    return key.replace(/-/gi,'n'); // $$ Inserts a "$".
+    // $$ Inserts a "$".
+    return key.replace(/-/gi,'n');
   }
 
   function convertKey_to_uuid(key)
@@ -1985,7 +1865,8 @@ function createGroupFormlyField(obs_field, gpSectionRnd)
          },
         hideExpression:hideExpression_,
       validators: {
-        dateValidator: FormValidator.getDateValidatorObject(curField.validators[0]) //this  will require refactoring as we move forward
+         //this  will require refactoring as we move forward
+        dateValidator: FormValidator.getDateValidatorObject(curField.validators[0])
         }
       }
       groupingFields.push(dateField);
@@ -2042,7 +1923,8 @@ function createRepeatingFormlyField(obs_field, gpSectionRnd)
            }
          },
       validators: {
-        dateValidator: FormValidator.getDateValidatorObject(curField.validators[0]) //this  will require refactoring as we move forward
+        //this  will require refactoring as we move forward
+        dateValidator: FormValidator.getDateValidatorObject(curField.validators[0])
         }
       }
       repeatingFields.push(dateField);

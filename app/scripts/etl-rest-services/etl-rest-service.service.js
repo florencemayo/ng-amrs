@@ -220,9 +220,8 @@
           failedCallback('Error processing request', error);
           console.error(error);
         });
-
     }
-    
+
     function getPatientListByIndicator(locationUuid, startDate, endDate, indicator, successCallback, failedCallback, startIndex, limit) {
       var resource = getResource('location/:uuid/patient-by-indicator');
 
@@ -311,7 +310,8 @@
 
     function getDataEntryStatisticsQueryParam(subType, startDate, endDate, locationIds, encounterTypeIds, formIds, providerUuid, creatorUuid) {
       var param = {
-        subType: subType, //mandatory params
+        //mandatory params
+        subType: subType,
         startDate: startDate,
         endDate: endDate
       };
@@ -342,15 +342,19 @@
       }
 
       //set-up the param object
-      if (locationIds && paramConfig.locations) { param.locations = locationIds; }
-      if (encounterTypeIds && paramConfig.encounterTypeIds) { param.encounterTypeIds = encounterTypeIds; }
-      if (formIds && paramConfig.formIds) { param.formIds = formIds; }
-      if (providerUuid && paramConfig.providerUuid) { param.providerUuid = providerUuid; }
-      if (creatorUuid && paramConfig.creatorUuid) { param.creatorUuid = creatorUuid; }
-
+      if (locationIds && paramConfig.locations)
+        param.locations = locationIds;
+      if (encounterTypeIds && paramConfig.encounterTypeIds)
+        param.encounterTypeIds = encounterTypeIds;
+      if (formIds && paramConfig.formIds)
+        param.formIds = formIds;
+      if (providerUuid && paramConfig.providerUuid)
+        param.providerUuid = providerUuid;
+      if (creatorUuid && paramConfig.creatorUuid)
+        param.creatorUuid = creatorUuid;
       return param;
     }
-    
+
     function getPatientsCreatedByPeriod(startDate, endDate, successCallback, failedCallback, startIndex, limit) {
       var resource = getResource('patient/creation/statistics');
 
@@ -375,13 +379,12 @@
           failedCallback('Error processing request', error);
           console.error(error);
         });
-
     }
-    
+
     function getDetailsOfPatientsCreatedInLocation(location,startDate, endDate, successCallback, failedCallback, startIndex, limit) {
       var resource = getResource('location/:location/patient/creation/statistics');
       var params = {location:location, startDate: startDate, endDate: endDate };
-      
+
       if (startIndex !== undefined) {
         params.startIndex = startIndex;
       }
@@ -398,7 +401,6 @@
           failedCallback('Error processing request', error);
           console.error(error);
         });
-
-    }    
+    }
   }
 })();

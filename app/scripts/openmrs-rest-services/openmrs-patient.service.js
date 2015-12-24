@@ -34,7 +34,6 @@
           var p = {uuid:data.uuid,
             identifiers:data.identifiers,
             person:data.person};
-          console.log(p);
           var d = new PatientModel.patient(p);
           callback(d);
         });
