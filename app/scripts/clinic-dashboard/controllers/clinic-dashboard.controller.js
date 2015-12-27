@@ -62,49 +62,40 @@
       		$scope.isBusy = false;
 		}
 
-
-		function wrapLocations(locations) {
-            var wrappedLocations = [];
+    function wrapLocations(locations) {
+            var wrappedLocations = []; var nameLists=[];
             for (var i = 0; i < locations.length; i++) {
                 wrappedLocations.push(wrapLocation(locations[i]));
+                 
+                 var b = locations[i].name;
+                 var a = "{" + 
+                      "name  :"  +  b + "," + 
+                      "value :"  +  b +
+                      "}" ;
+                 
+                 nameLists.push(a);
             }
+            console.log("aa"+nameLists);
+            locFactory.locationList=nameLists;
             return wrappedLocations;
         }
 
         function wrapLocation(location) {
             return LocationModel.toWrapper(location);
         }
-      //function to return name of locations
-      var nameLists=[]; 
-      function nameLocations(locations) {
-        for (var i = 0; i < locations.length; i++) {
-               var a= locations[i].name(); 
-               var b= {"name"  : a,"value" : a}
-               nameLists.push(b);  
-           }
-       }
-        //doesnt work
-        //locFactory.setLocations(nameLists); 
+      
     }
     //use a factory to set the locations
     function locFactory(){
-        this.locationList=[
-                     {
-                       "name"  : "Amani Hospital",
-                       "value" : "Amani Hospital"
-                       }
-                     ];
-       
-       //this.setLocations: function(data){
-         //        this.locationList = data;
-        //}
+      var locationList;
 
-        function allLocations(){   
-            return this.locationList;
-            } 
-        return{
-               getLocations: allLocations
-        }
+      console.log(" locationList"+locationList);
+      function allLocations(){   
+           return locationList;
+      } 
+      return{
+             getLocs: allLocations
+      }
     } 
 
     app.run(function (formlyConfig,locFactory){
@@ -114,7 +105,7 @@
              defaultOptions: {
               templateOptions:{
                 label:"Default Locations",
-                options: locFactory.getLocations()
+                options: locFactory.getLocs()
                 }
              }
         });
