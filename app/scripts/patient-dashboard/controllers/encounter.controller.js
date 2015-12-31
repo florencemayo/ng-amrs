@@ -55,15 +55,7 @@
     function onLoadEncountersSuccess(data) {
       vm.isBusy = false;
       vm.encounterList = EncounterModel.toArrayOfModels(data);
-      //vm.orderByField ='vm.encounterList.encounterDate';
       vm.hasEncounters = vm.encounterList.length > 0 ? true : false;
-
-      //for (var i = 0; i < vm.encounterList.length; i++) {
-        //       console.log(vm.encounterList[i].encounterDate());
-          //     vm.orderByField.push(vm.encounterList[i].encounterDate());  
-           //}
-     
-      //
       vm.totalItems =  vm.encounterList.length;
       vm.noOfPages = Math.ceil(vm.totalItems / vm.entryLimit);
 
@@ -77,7 +69,7 @@
     }
 
      //this is used for ordering the contents of table Encounter
-     // vm.orderByField = 'EncounterModel.encounterDate()';
+     vm.orderByField = 'EncounterModel.encounterDate()';
       //vm.orderByField1='2015-08-03T14:15:51.000+0200';
      //console.log("date : "+vm.orderByField );
      vm.reverseSort  = false;

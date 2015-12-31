@@ -39,7 +39,7 @@
                                      "name"  : "Unknown Location",
                                      "value" : "Unknown Location"
                                     }
-                                    ];
+                                    ]; console.log("Locs "+locationList)
              function getLocationsList(){
                 return locationList;
                 }

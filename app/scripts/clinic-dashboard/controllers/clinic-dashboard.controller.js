@@ -13,9 +13,17 @@
 		.module('app.clinicDashboard')
 		.controller('ClinicDashboardCtrl', ClinicDashboardCtrl)
 		.factory('locFactory',locFactory);
-	ClinicDashboardCtrl.$nject = ['$rootScope', '$scope','$stateParams', 'OpenmrsRestService', 'LocationModel'];
 
-	function ClinicDashboardCtrl($rootScope, $scope, locFactory, $stateParams, OpenmrsRestService, LocationModel) {
+	ClinicDashboardCtrl.$nject = [
+	  '$rootScope', 
+	  '$scope',
+	  '$stateParams',
+	  'OpenmrsRestService', 
+	  'LocationModel'
+	  ];
+
+	function ClinicDashboardCtrl($rootScope, $scope, locFactory, 
+		                         $stateParams, OpenmrsRestService, LocationModel) {
 
 		var locationService = OpenmrsRestService.getLocationResService();
 
@@ -63,20 +71,16 @@
 		}
 
     function wrapLocations(locations) {
-            var wrappedLocations = []; var nameLists=[];
+            var wrappedLocations = []; 
+            var nameLists=[];
             for (var i = 0; i < locations.length; i++) {
                 wrappedLocations.push(wrapLocation(locations[i]));
                  
+                 //take the names and add it to an array
                  var b = locations[i].name;
-                 var a = "{" + 
-                      "name  :"  +  b + "," + 
-                      "value :"  +  b +
-                      "}" ;
-                 
-                 nameLists.push(a);
+                 nameLists.push({name:b,value :b});
             }
-            console.log("aa"+nameLists);
-            locFactory.locationList=nameLists;
+            locFactory.getNames(nameLists);
             return wrappedLocations;
         }
 
@@ -87,9 +91,16 @@
     }
     //use a factory to set the locations
     function locFactory(){
-      var locationList;
-
-      console.log(" locationList"+locationList);
+      var locationList={};
+      //pass the names from the controller to this factory
+      //THIS Fails
+      return {
+       getNames: function(data) {
+        locationList = data ;
+        return locationList;
+      }
+    };
+    
       function allLocations(){   
            return locationList;
       } 
@@ -105,7 +116,7 @@
              defaultOptions: {
               templateOptions:{
                 label:"Default Locations",
-                options: locFactory.getLocs()
+                options: locFactory.getLocs
                 }
              }
         });

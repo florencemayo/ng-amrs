@@ -7,14 +7,15 @@
 
 /*space navigation bar*/
 .navbar{
-  padding-left:  10%;
-  padding-right: 10%;
+  margin-left: 10%;
+  margin-right: 10%;
+  background-color: #cde8df;
 }
-.navbar-fixed-top{
-   min-height: 10px;
+.left-tab{
+  background-color: #cde8df;
 }
-.table{
-  min-width: 700px;
+.login-page {
+   background-color: #cde8df;
 }
 .panel{
   min-width: 710px;
@@ -22,7 +23,9 @@
 .panel-info{
   min-width: 700px;
 }
-
+.table{
+  min-width: 700px;
+}
 
 html, body {
   padding-left:  5%;
@@ -41,7 +44,7 @@ html, body {
 
 /* Custom page header */
 .header {
-  border-bottom: 0px solid #e5e5e5;
+  border: 0.5px solid #e5e5e5;
   margin-bottom: 10px;
 }
 /* Make the masthead heading the same height as the navigation */
@@ -57,7 +60,7 @@ html, body {
 .footer {
   padding-top: 7px;
   color: #777;
-  border-top: 1px solid #e5e5e5;
+  border: 0.5px solid #e5e5e5;
 }
 
 .container-narrow > hr {
