@@ -70,8 +70,6 @@
 
      //this is used for ordering the contents of table Encounter
      vm.orderByField = 'EncounterModel.encounterDate()';
-      //vm.orderByField1='2015-08-03T14:15:51.000+0200';
-     //console.log("date : "+vm.orderByField );
      vm.reverseSort  = false;
   }
 })();
