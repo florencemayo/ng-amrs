@@ -18,13 +18,16 @@
    background-color: #cde8df;
 }
 .panel{
-  min-width: 710px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .panel-info{
-  min-width: 700px;
+ margin-left: auto;
+ margin-right: auto;
 }
-.table{
-  min-width: 700px;
+.table {
+   margin-left: auto;
+   margin-right: auto;
 }
 
 html, body {
@@ -86,8 +89,8 @@ html, body {
   #main-content{
     height: auto;
     margin-bottom: 25px;
-    padding-left: 10%;
-    padding-right: 10%;
+    margin-left: 10%;
+    margin-right: 10%;
   }
 
   #patient-dashboard{
