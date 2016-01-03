@@ -8,6 +8,11 @@
           <td><b> Date of Birth : </b></td>
           <td>{{patient.birthdate()| date:'dd-MM-yyyy'}} ({{patient.age()}}&nbsp year(s))</td> 
           </tr>
+            <tr>
+          <td> <b>Gender : </b></td>
+          <td> {{patient.genderFull()}}
+               <span ng-if="patient.genderFull()==null">Not Available</span></td>
+          </tr>
           <tr>
           <td> <b>Phone Number : </b></td>
           <td> {{patient.phoneNumber()}}
